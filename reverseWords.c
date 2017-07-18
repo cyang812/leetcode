@@ -1,70 +1,49 @@
 #include <stdio.h>
 #include <stdint.h>
 
+// 倒序输出一个单词
 char* reverseAWord(char *s)
 {
 	int length=0;
 	int i=0;
-	char temp[20],*ptr;
-    ptr = temp;
+	static char temp[20];
 
 	while(*s++)length++;
 	printf("length:%d\n",length);
+    //printf("raw Str: %s\n",s);
 
 	for(i; i<length; i++)
 	{
 		temp[i] = s[length-i-1];
-		//printf("temp[%d] = %c\n",i,temp[i]);
+		printf("temp[%d] = %c\n",i,temp[i]);
 	}
 	temp[i] = '\0';
 
-	printf("ret str : %s \n",*temp);
-	return ptr;
+	printf("ret str : %s \n",temp);
+	return temp;
 }
-#if 0
+#if 1
+// 将句子分解成单词
 char* reverseWords(char* s) {
 
-	char tempStr[20] = "asd";
-	char resStr[50] = "asd";
-	int i = 0,j = 0,index = 0;
-	int resStrIdx;
+    int index = 0;
+    char tempStr[10];
+    static char resStr[100];
 
-	printf("entry fun\n");
+    while(*s++!='\0' && *s== ' ')
+    {
+        temp[index++] = *s++;
 
-	for(i; s[i]!='\0'; i++)
-	{
-		//get a word
-		for(j=i; s[j]!=' '; j++)
-		{
-			tempStr[index++] = s[j];
-		}
-
-		// change ptr to the next word
-		i = j+1;
-
-		//reverse a word
-		for(j=0; j<index; j++)
-		{
-			tempStr[j] = s[index-j];
-		}
-
-		//add to a sum str
-		for(resStrIdx=0; resStrIdx<index; resStrIdx++)
-		{
-			resStr[resStrIdx] = tempStr[resStrIdx];
-		}
-
-		//clear
-		index = 0;
-	}
+        reverseAWord(temp);
+    }
 
 	return resStr;
 }
 #endif
 int main()
 {
-	char *rawStr = "let's take LeetCode contest";
-	char *aWord = "hello";
+	char rawStr[] = "let's take LeetCode contest";
+	char aWord[] = "let's";
 	char *ptr;
 
 	//char resStr[50] = {0},*ptr;
@@ -73,7 +52,7 @@ int main()
 	//ptr = reverseWords(rawStr);
 	ptr = reverseAWord(aWord);
 
-	printf("%s\n",ptr);
+	printf("ptr:%s\n",ptr);
 
 	return 0;
 }
