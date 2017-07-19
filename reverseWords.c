@@ -1,4 +1,6 @@
 /*
+* 344. Reverse String
+* 541. Reverse String II
 * 557. Reverse Words in a String III
 * note: 不完美解法，当输入字符数过多时，不能通过
 *       附带网上的完美解法
@@ -6,6 +8,8 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
+
+#define problem 1 // 2 3
 
 // 倒序输出一个单词
 char* reverseAWord(char *s)
@@ -118,7 +122,7 @@ void reverse(int b, int e, char *s){
         e--;
     }
 }
-
+#if(problem == 3)
 // 分解句子成单词后调用逆序函数
 char* reverseWords(char* s) {
     int i, s_len = strlen(s), index = 0;
@@ -131,22 +135,65 @@ char* reverseWords(char* s) {
     }
     return s;
 }
+#elif(problem == 2)
+char* reverseWords(char* s,int k) {
 
+    int i = 0,j = 1,idx = 0;
+    int len = strlen(s);
+    int cnt = len/(2*k);
+    int last = len%(2*k);
+
+    printf("cnt = %d\n",cnt);
+    printf("last = %d\n",last);
+
+    for(i; i<cnt; i++)
+    {
+        reverse(idx,idx+k-1,s);
+        idx+=2*k;
+        printf("cnt\n");
+        printf("s = %s\n",s);
+    }
+    if(last>=k){
+        reverse(idx,idx+k-1,s);
+        printf("if\n");
+        printf("s = %s\n",s);
+    }else{
+        reverse(idx,idx+last-1,s);
+        printf("else\n");
+        printf("s = %s\n",s);
+    }
+
+    return s;
+}
+#elif(problem == 1)
+char* reverseString(char* s) {
+    int idx = 0;
+    int len = strlen(s);
+
+    reverse(idx,len-1,s);
+    return s;
+}
+#endif
 int main()
 {
 	//char rawStr[] = "let's take LeetCode contest";
 	char rawStr[] = "hello";
 	char aWord[] = "let's";
+	char bWord[] = "abcdefgh";
+	//char bWord[] = "hyzqyljrnigxvdtneasepfahmtyhlohwxmkqcdfehybknvdmfrfvtbsovjbdhevlfxpdaovjgunjqlimjkfnqcqnajmebeddqsgl";
 	char *ptr;
+    int k = 3;
 
 	//char resStr[50] = {0},*ptr;
 	//ptr = resStr;
 
 	//ptr = reverseAWord(aWord);
-	ptr = reverseWords(rawStr);
+	//ptr = reverseWords(rawStr);
+    //ptr = reverseWords(bWord,k);
+    ptr = reverseString(bWord);
 
-	printf("raw str len=%d, str len=%d\n",strlen(rawStr),strlen(ptr));
 	printf("res str:%s\n",ptr);
+	printf("raw str len=%d, str len=%d\n",strlen(bWord),strlen(ptr));
 
     return 0;
 }
