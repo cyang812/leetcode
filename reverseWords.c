@@ -1,6 +1,7 @@
 /*
 * 557. Reverse Words in a String III
 * note: 不完美解法，当输入字符数过多时，不能通过
+*       附带网上的完美解法
 */
 #include <stdio.h>
 #include <stdint.h>
@@ -29,7 +30,7 @@ char* reverseAWord(char *s)
 	printf("ret str : %s \n",temp);
 	return temp;
 }
-#if 1
+#if 0
 // 将句子分解成单词
 char* reverseWords(char* s) {
 
@@ -93,6 +94,7 @@ char* reverseWords(char* s) {
         //strcat(resStr,tempStr2);
         //strcat(resStr,' ');
 
+        //组合逆序后的单词为一个句子
         for(x,y=0; y<strlen(tempStr2Ptr); x++,y++)
         {
             resStr[x] = tempStr2Ptr[y];
@@ -105,10 +107,35 @@ char* reverseWords(char* s) {
 	return resStr;
 }
 #endif
+
+// 逆序一个字符串
+void reverse(int b, int e, char *s){
+    while(b < e) {
+        s[b] = s[b] ^ s[e];
+        s[e] = s[b] ^ s[e];
+        s[b] = s[b] ^ s[e];
+        b++;
+        e--;
+    }
+}
+
+// 分解句子成单词后调用逆序函数
+char* reverseWords(char* s) {
+    int i, s_len = strlen(s), index = 0;
+
+    for(i = 0; i <= s_len; i++) {
+        if((s[i] == ' ') || (s[i] == '\0')){  // 当出现空格或者结束时，调用逆序函数
+            reverse(index, i - 1, s);
+            index = i + 1; // 更改指针
+        }
+    }
+    return s;
+}
+
 int main()
 {
-	char rawStr[] = "let's take LeetCode contest";
-	//char rawStr[] = "hello";
+	//char rawStr[] = "let's take LeetCode contest";
+	char rawStr[] = "hello";
 	char aWord[] = "let's";
 	char *ptr;
 
@@ -119,7 +146,7 @@ int main()
 	ptr = reverseWords(rawStr);
 
 	printf("raw str len=%d, str len=%d\n",strlen(rawStr),strlen(ptr));
-	printf("ptr:%s\n",ptr);
+	printf("res str:%s\n",ptr);
 
-	return 0;
+    return 0;
 }
