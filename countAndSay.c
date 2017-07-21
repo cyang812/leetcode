@@ -30,7 +30,7 @@ char* countAndSay(int n) {
     if(n == 1)
     {
         strPtr = "11";
-        //printf("n==1\n");
+        printf("n==1\n");
         //printf("s = %d\n",strlen(s));
         //sprintf(temp,"%d%d",n,n);
         return strPtr;
@@ -38,8 +38,9 @@ char* countAndSay(int n) {
     else
     {
         strPtr = countAndSay(n-1);
+        printf("++++++++++++++++++begin+++++++++++++++++++++++\n");
         printf("str =%s , strlen =%d\n",strPtr,strlen(strPtr));
-        for(i=0; count<strlen(strPtr);i++ )
+        for(i=0,idx=1,count=0; count<strlen(strPtr);i++ )
         {
             printf("loop\n");
             //if((strPtr[i]-'0') == (strPtr[i+1]-'0'))
@@ -49,12 +50,13 @@ char* countAndSay(int n) {
                 idx++;
             }else
             {
-                printf("strPtr[i] =%d, strPtr[i+1] =%d\n",strPtr[i],strPtr[i+1]);
-                sprintf(temp,"%d%d",idx,strPtr[i]);
+                printf("strPtr[%d] =%d, strPtr[%d] =%d\n",i,strPtr[i],i+1,strPtr[i+1]);
+                sprintf(temp,"%d%d",idx,strPtr[i]-'0');
                 printf("idx =%d, s[i] =%c, temp =%s \n",idx,strPtr[i],temp);
 
                 //toDo:strcat
                 strcat(s,temp);
+                //strcpy(s,temp);
                 count+=idx;
                 idx = 1;
             }
