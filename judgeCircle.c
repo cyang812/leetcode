@@ -1,6 +1,5 @@
 /*
 * 657. Judge Route Circle
-* three ways to solution this problem
 */
 
 #include <stdio.h>
