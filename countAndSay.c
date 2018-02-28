@@ -70,8 +70,11 @@ char* countAndSay1(int n) {
 }
 #endif
 char* countAndSay(int n) {
-    if( n == 1 ) return "1";
-	char *cur = malloc(2), *tmp;
+
+    char * retstr = "1";
+    if( n == 1 ) return retstr;
+    
+	char *cur = (char *)malloc(2), *tmp;
 	cur[0] = '1';
 	cur[1] = 0;
 

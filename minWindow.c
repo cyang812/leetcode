@@ -65,10 +65,10 @@ char* minWindow(char* s, char* t)
 
 int main(int argc, char const *argv[])
 {
-	// char s[] = "ADOBECODEBANC";
-	// char t[] = "ABC";
-	char s[] = "a";
-	char t[] = "aa";
+	char s[] = "ADOBECODEBANC";
+	char t[] = "ABC";
+	// char s[] = "a";
+	// char t[] = "aa";
 	char *res;
 
 	res = minWindow(s,t);
