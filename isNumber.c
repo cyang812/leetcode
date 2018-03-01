@@ -13,8 +13,10 @@
 	4 - space
 	5 - e
 * cnt: the count of numbers
+* way 1 is high efficiency
 */
 
+#if 1
 bool isNumber(char* s) {
 
     bool retVal = true;
@@ -108,6 +110,90 @@ bool isNumber(char* s) {
 
 	return retVal;
 }
+#else
+bool isNumber(char* s) {
+
+    bool retVal = true;
+    
+	int tmp = 0;
+	int flag = 0;
+	int err = 0;
+	int cnt = 0;   //num_cnt
+	int dot_cnt = 0;
+
+	while(*s && err==0)
+	{
+		tmp = *s - '0';	
+
+		if(tmp <= 9 && tmp >= 0)
+		{
+			if(flag == 4)
+				err = 1;
+			if(flag != 3 && flag != 5)
+				flag = 2;	
+			cnt++;
+		}
+		else if( (*s == '.' && flag == 3) || (*s == '.' && flag == 4) || (*s == '.' && flag == 5) )
+		{
+			err = 1;
+		}
+		else if( (*s == 'e' && cnt == 0) || (*s == 'e' && flag == 4) || (*s == 'e' && flag == 5) )
+		{
+			err = 1;
+		}
+		else if( (*s == '+' && flag == 3) || (*s == '-' && flag == 3) )
+		{
+			err = 1;
+		}
+		else if( (*s == '+' && flag == 2) || (*s == '-' && flag == 2) || (*s == '+' && flag == 5) || (*s == '-' && flag == 5) )
+		{
+			if(cnt != 0)
+				err = 1;
+		} 
+		else if(*s == '+' || *s == '-')
+		{
+			cnt = 0;
+			if(flag != 5)
+				flag = 1;
+		}
+		else if(tmp <= 9 && tmp >= 0)
+		{
+			cnt++;
+			flag = 2;
+		}
+		else if(*s == '.')
+		{
+			dot_cnt++;
+			flag = 3;
+		}
+		else if(*s == ' ')
+		{
+			if(flag != 0 && flag != 5)
+				flag = 4;
+		}	
+		else if(*s == 'e')
+		{
+			cnt = 0;
+			flag = 5;
+		}
+		else
+		{
+			err = 1;
+		}
+
+		s++;
+	}
+
+	printf("flag = %d\n", flag);
+	printf("err = %d\n", err);
+	printf("cnt = %d\n", cnt);
+
+	if(err || cnt==0 || dot_cnt>1)
+		retVal = false;
+
+	return retVal;
+}
+#endif
 
 int main(int argc, char const *argv[])
 {
@@ -135,8 +221,14 @@ int main(int argc, char const *argv[])
 	char str21[] = " 005047e+6"; //true
 	char str22[] = "459277e38+"; //false
 	char str23[] = ".1.";   //false
+	char str24[] = " 0";    //true
+	char str25[] = "6+1";	//false
+	char str26[] = ".8+";   //false 
+	char str27[] = "3.5e+3.5e+3.5"; //false
+	char str28[] = ".-4";  //false
+	char str29[] = "87e276 -.9"; //false
 
-	printf("str22 : %d\n", isNumber(str22));
+	printf("str%d : %d\n", 29, isNumber(str25));
 
 	return 0;
 }
