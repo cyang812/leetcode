@@ -35,7 +35,8 @@ int* nextGreaterElement(int* findNums, int findNumsSize, int* nums, int numsSize
 			{
 				/* code */
 				ret[i] = nums[j];
-				flag = 2;
+				// flag = 2;
+				break;
 			}
 		}
 	}
@@ -46,11 +47,11 @@ int* nextGreaterElement(int* findNums, int findNumsSize, int* nums, int numsSize
 int main(int argc, char const *argv[])
 {
 	/* code */
-	// int a1[] = {4,1,2};
-	// int b1[] = {1,3,4,2};
+	int a1[] = {4,1,2};
+	int b1[] = {1,3,4,2};
 
-	int a1[] = {2,4};
-	int b1[] = {1,2,3,4};
+	// int a1[] = {2,4};
+	// int b1[] = {1,2,3,4};
 
 	int *ret = NULL;
 	int returnSize;
