@@ -85,8 +85,7 @@ int main(int argc, char const *argv[])
 		p2->val = b[i];
 	}
 
-	p1->next = NULL;
-	p2->next = NULL;
+	p1->next = NULL; p2->next = NULL;
 
 	retVal = addTwoNumbers(l1,l2);
 	p_ret = retVal;
