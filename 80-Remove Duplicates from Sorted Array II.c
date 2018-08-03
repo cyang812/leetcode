@@ -2,14 +2,14 @@
 * @Author: cyang
 * @Date:   2018-08-03 12:02:46
 * @Last Modified by:   cyang
-* @Last Modified time: 2018-08-03 12:13:46
+* @Last Modified time: 2018-08-03 12:56:45
 */
 
 #include <stdio.h>
 
 int removeDuplicates(int* nums, int numsSize) {
 	int ret_cnt = 0;
-	int bak;
+	int bak = nums[0] - 1;
 	int flag = 0;
 
 	for (int i = 0; i < numsSize; ++i)
